@@ -6,5 +6,8 @@ namespace YapilacaklarWebApi.Servcices.Bases
     public interface IKullaniciService
     {
         IQueryable<KullaniciModel> GetQuery();
-    }
+        void Add(KullaniciModel model);
+        void Update(KullaniciModel model);
+        void Delete(int id,string updatedBy);
+    }   
 }

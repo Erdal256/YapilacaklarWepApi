@@ -1,4 +1,4 @@
-﻿namespace YapilacaklarWebApi.Migrations
+﻿namespace YapilacaklarWepApi.Migrations
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,6 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
-
             List<Yapilacak> yapılacaklar = new List<Yapilacak>()
             {
                 new Yapilacak()

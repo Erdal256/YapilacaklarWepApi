@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using YapilacaklarWebApi.Contexts;
+using YapilacaklarWebApi.Models;
 using YapilacaklarWebApi.Servcices;
 using YapilacaklarWebApi.Servcices.Bases;
 
@@ -10,7 +11,7 @@ namespace YapilacaklarWebApi.Controllers
 {
     public class KullaniciController : ApiController
     {
-        private readonly DbContext _db = new YapilacaklarContext();  
+        private readonly DbContext _db = new YapilacaklarContext();
         private readonly IKullaniciService _kullaniciService;
 
         public KullaniciController()
@@ -31,7 +32,7 @@ namespace YapilacaklarWebApi.Controllers
             {
                 return BadRequest(); // 404: Bad Request
             }
-        
+
         }
         //[HttpGet]
         // /api/Kullanici
@@ -41,12 +42,65 @@ namespace YapilacaklarWebApi.Controllers
             try
             {
                 var model = _kullaniciService.GetQuery().SingleOrDefault(k => k.Id == id);
+                if (model == null)
+                    return NotFound();
                 return Ok(model);
             }
-            catch (Exception exc )
+            catch (Exception exc)
             {
 
                 return BadRequest();
+            }
+        }
+        //[Httppost]
+        // /api/Kullanici
+        public IHttpActionResult Post(KullaniciModel model)
+        {
+            try
+            {
+                model.CreatedBy = "tmpuser";
+                if (ModelState.IsValid)
+                {
+                    _kullaniciService.Add(model);
+                    return Ok();
+                }
+                return BadRequest();
+
+            }
+            catch (Exception exc)
+            {
+                return InternalServerError();
+            }
+        }
+        public IHttpActionResult Put(KullaniciModel model)
+        {
+            try
+            {
+                model.UpdatedBy = "tmpuser";
+                if (ModelState.IsValid)
+                {
+                    _kullaniciService.Update(model);
+                    return Ok();
+                }
+                return BadRequest();
+            }
+            catch (Exception exc)
+            {
+
+                return InternalServerError();
+            }
+        }
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                string updatedBy = "tmpuser";
+                _kullaniciService.Delete(id, updatedBy);
+                return Ok(id);
+            }
+            catch (Exception exc)
+            {
+                return InternalServerError();
             }
         }
     }

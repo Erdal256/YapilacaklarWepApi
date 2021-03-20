@@ -1,4 +1,4 @@
-﻿namespace YapilacaklarWebApi.Migrations
+﻿namespace YapilacaklarWepApi.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -17,7 +17,7 @@
                         Adi = c.String(maxLength: 50),
                         Soyadi = c.String(maxLength: 50),
                         CreateDate = c.DateTime(nullable: false),
-                        CreatedBy = c.String(nullable: false, maxLength: 50),
+                        CreatedBy = c.String(maxLength: 50),
                         UpdateDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 50),
                         IsDeleted = c.Boolean(nullable: false),
@@ -29,12 +29,12 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Görev = c.String(nullable: false),
+                        Gorev = c.String(nullable: false),
                         Tarih = c.DateTime(),
                         YapildiMi = c.Boolean(nullable: false),
                         KullaniciId = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false),
-                        CreatedBy = c.String(nullable: false, maxLength: 50),
+                        CreatedBy = c.String(maxLength: 50),
                         UpdateDate = c.DateTime(),
                         UpdatedBy = c.String(maxLength: 50),
                         IsDeleted = c.Boolean(nullable: false),
