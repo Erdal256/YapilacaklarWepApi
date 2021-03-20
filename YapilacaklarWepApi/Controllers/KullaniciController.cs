@@ -9,6 +9,7 @@ using YapilacaklarWebApi.Servcices.Bases;
 
 namespace YapilacaklarWebApi.Controllers
 {
+    [Authorize]
     public class KullaniciController : ApiController
     {
         private readonly DbContext _db = new YapilacaklarContext();
@@ -58,7 +59,7 @@ namespace YapilacaklarWebApi.Controllers
         {
             try
             {
-                model.CreatedBy = "tmpuser";
+                model.CreatedBy = User.Identity.Name;
                 if (ModelState.IsValid)
                 {
                     _kullaniciService.Add(model);
@@ -76,7 +77,7 @@ namespace YapilacaklarWebApi.Controllers
         {
             try
             {
-                model.UpdatedBy = "tmpuser";
+                model.UpdatedBy = User.Identity.Name;
                 if (ModelState.IsValid)
                 {
                     _kullaniciService.Update(model);
@@ -94,7 +95,7 @@ namespace YapilacaklarWebApi.Controllers
         {
             try
             {
-                string updatedBy = "tmpuser";
+                string updatedBy = User.Identity.Name;
                 _kullaniciService.Delete(id, updatedBy);
                 return Ok(id);
             }
