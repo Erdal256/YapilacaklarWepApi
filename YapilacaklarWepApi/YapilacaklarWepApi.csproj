@@ -183,12 +183,15 @@
     <Compile Include="Contexts\YapilacaklarContext.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KullaniciController.cs" />
+    <Compile Include="Controllers\KullaniciYapilacakController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\YapilacakController.cs" />
     <Compile Include="Migrations\202103141542152_V1.cs" />
     <Compile Include="Migrations\202103141542152_V1.designer.cs">
       <DependentUpon>202103141542152_V1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\YapilacaklarFilterModel.cs" />
     <Compile Include="Models\YapilacakModel.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Records\Bases\RecordBase.cs" />

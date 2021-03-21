@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using YapilacaklarWebApi.Records.Bases;
+using YapilacaklarWepApi.Models;
 
 namespace YapilacaklarWebApi.Models
 {
@@ -18,5 +20,6 @@ namespace YapilacaklarWebApi.Models
 
         [StringLength(50)]
         public string Soyadi { get; set; }
+        public List<YapilacakModel> Yapilacaklar { get; set; }
     }
 }

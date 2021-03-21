@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using YapilacaklarWebApi.Contexts;
 using YapilacaklarWebApi.Entities;
 using YapilacaklarWebApi.Models;
 using YapilacaklarWebApi.Servcices.Bases;
+using YapilacaklarWepApi.Models;
 
 namespace YapilacaklarWebApi.Servcices
 {
@@ -17,7 +19,7 @@ namespace YapilacaklarWebApi.Servcices
         }
         public IQueryable<KullaniciModel> GetQuery()
         {
-            return _db.Set<Kullanici>().Where(k => k.IsDeleted == false).Select(k => new KullaniciModel()
+            var query = _db.Set<Kullanici>().Where(k => k.IsDeleted == false).Select(k => new KullaniciModel()
             {
                 Id = k.Id,
                 KullaniciAdi = k.KullaniciAdi,
@@ -29,6 +31,8 @@ namespace YapilacaklarWebApi.Servcices
                 UpdateDate = k.UpdateDate,
                 UpdatedBy = k.UpdatedBy
             });
+            //var testList = query.ToList();
+            return query;
         }
         public void Add(KullaniciModel model)
         {
@@ -60,18 +64,39 @@ namespace YapilacaklarWebApi.Servcices
             _db.SaveChanges();
         }
 
-     
 
-        public void Delete(int id,string updatedBy)
+
+        public void Delete(int id, string updatedBy)
         {
-            
-                var entity = _db.Set<Kullanici>().Find(id);
-                entity.IsDeleted = true;
-                entity.UpdateDate = DateTime.Now;
-                entity.UpdatedBy = updatedBy;
-                _db.Entry(entity).State = EntityState.Modified;
-                _db.SaveChanges();
-            
+
+            var entity = _db.Set<Kullanici>().Find(id);
+            entity.IsDeleted = true;
+            entity.UpdateDate = DateTime.Now;
+            entity.UpdatedBy = updatedBy;
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
+        public List<KullaniciModel> GetKullanicilarIncludingYapilacaklar()
+        {
+            //List<Yapilacak> testYapilacaklarLazy = _db.Set<Kullanici>().FirstOrDefault(k => k.KullaniciAdi ==
+            //"erdal").Yapilacaklar;
+            //List<Yapilacak> testYapilacakEager = _db.Set<Kullanici>().Include("Yapilacaklar").FirstOrDefault(k => k.KullaniciAdi ==
+            // "erdal").Yapilacaklar;
+            return _db.Set<Kullanici>().Where(k => !k.IsDeleted).Select(k => new KullaniciModel()
+            {
+                Id = k.Id,
+                Adi = k.Adi,
+                Soyadi = k.Soyadi,
+                KullaniciAdi = k.KullaniciAdi,
+                Yapilacaklar = k.Yapilacaklar.Where(y => !y.IsDeleted).Select(y => new YapilacakModel()
+                {
+                    Id = y.Id,
+                    Gorev = y.Gorev,
+                    Tarih = y.Tarih,
+                    YapildiMi = y.YapildiMi
+                }).ToList()
+            }).ToList();
         }
     }
 }

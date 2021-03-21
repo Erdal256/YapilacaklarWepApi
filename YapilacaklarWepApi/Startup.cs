@@ -26,7 +26,7 @@ namespace YapilacaklarWebApi
             OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
             {
                 TokenEndpointPath = new Microsoft.Owin.PathString("/token"), // token alacağımız path'i belirtiyoruz
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1), // 1 gün
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30), // 1 gün
                 AllowInsecureHttp = false, // sadece https isteklerine cevap verir
                 Provider = new SimpleAuthorizationServerProvider()
             };

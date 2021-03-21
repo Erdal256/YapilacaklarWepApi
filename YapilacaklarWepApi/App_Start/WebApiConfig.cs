@@ -15,10 +15,17 @@ namespace YapilacaklarWebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "CustomKulYap",
+                routeTemplate: "kulyap/{controller}",
+                defaults: new { controller = "KullaniciYapilacaklar"}
+                ); // route constraints üzerinden buradaki rpute tanımlamalarına kısıtlama getirilebilir.
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
         }
     }
 }
